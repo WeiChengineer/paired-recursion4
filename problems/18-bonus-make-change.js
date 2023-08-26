@@ -55,25 +55,51 @@ solution so that it only calculates and compares all of the different
 combinations.
 ***********************************************************************/
 
-function makeBetterChange(target, coins = [25, 10, 5, 1], res = []) {
-  if(target <= 0) {
-    return null;
-  }
-  for(let coin of coins) {
-    if(coin <= target) {
-      res.push(coin);
-      makeBetterChange((target - coin), coins)
-    }
-      if(coin > target) {
-        makeBetterChange((target-coin), coins.splice(0,1), res)
-      }
+// function makeBetterChange(target, coins = [25, 10, 5, 1], res = []) {
+//   if(target <= 0) {
+//     return;
+//   }
+//   for(i = 0 ; i < coins.length ; i++) {
+//     if(coins[i] <= target) {
+//       res.push(coins[i])
+//      let remainder = target - coins[i]
+//      res.push(coins[1])
+//       makeBetterChange(remainder, coins.slice(1), res)
+      
+//     }
+//       if(coin > target) {
+//         makeBetterChange((target -= coin), coins.splice(0,1), res)
+//         console.log(target, coins)
+//       }
       
 
   
+//   }
+//     return res;
+// }
+
+function greedyMakeChange(target, coins = [25, 10, 5, 1]) {
+  if (target === 0) return []
+  if (coins.length === 0) return null
+    if (target >= coins[0]) {
+      let remainder = target - coins[0]
+      let res = greedyMakeChange(remainder, coins)
+      if (res === null) return null
+      else return [coins[0], ...res]
+    }
+     else {
+      let newCoins = coins.slice(1)
+      let res = greedyMakeChange(target, newCoins)
+      if (res === null) return null
+      else return [...res]
+    }
   }
-    return res;
-}
-console.log(makeBetterChange(75));
+
+
+
+
+
+console.log(greedyMakeChange(55));
 
 
 /**************DO NOT MODIFY ANYTHING UNDER THIS LINE*****************/
