@@ -35,7 +35,14 @@ console.log(x[0] === y[0]) // true
 
 
 function deepDup(arr) {
-  // Your code here 
+  const duped = [];
+  if (!(Array.isArray(arr))) {
+    return arr;
+  }
+  for(let curr of arr) {
+    duped.push(deepDup(curr))
+  }
+  return duped;
 }
 
 
