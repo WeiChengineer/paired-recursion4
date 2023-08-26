@@ -54,53 +54,57 @@ permutations without storing them in an array. Then go back and refactor your
 solution so that it only calculates and compares all of the different
 combinations.
 ***********************************************************************/
-
-// function makeBetterChange(target, coins = [25, 10, 5, 1], res = []) {
-//   if(target <= 0) {
-//     return;
-//   }
-//   for(i = 0 ; i < coins.length ; i++) {
-//     if(coins[i] <= target) {
-//       res.push(coins[i])
-//      let remainder = target - coins[i]
-//      res.push(coins[1])
-//       makeBetterChange(remainder, coins.slice(1), res)
-      
-//     }
-//       if(coin > target) {
-//         makeBetterChange((target -= coin), coins.splice(0,1), res)
-//         console.log(target, coins)
-//       }
-      
-
-  
-//   }
-//     return res;
-// }
-
-function greedyMakeChange(target, coins = [25, 10, 5, 1]) {
-  if (target === 0) return []
-  if (coins.length === 0) return null
-    if (target >= coins[0]) {
-      let remainder = target - coins[0]
-      let res = greedyMakeChange(remainder, coins)
-      if (res === null) return null
-      else return [coins[0], ...res]
-    }
-     else {
-      let newCoins = coins.slice(1)
-      let res = greedyMakeChange(target, newCoins)
-      if (res === null) return null
-      else return [...res]
+function makeBetterChange(target, coins = [25, 10, 5, 1]) {
+  if (target === 0) return [];
+  if (target < 0 || coins.length === 0) return null;
+  let bestChange = null;
+  for (let i = 0 ; i < coins.length ; i++) {
+    if (coins[i] <= target) {
+      let remainder = target - coins[i];
+      let bestRemainder = makeBetterChange(remainder, coins.slice(0, i + 1));
+      if (bestRemainder !== null) {
+        let change = [coins[i], ...bestRemainder];
+        if (bestChange === null || change.length < bestChange.length) {
+          bestChange = change;
+        }
+      }
     }
   }
+  return bestChange
+}
+// function greedyMakeChange(target, coins = [25, 10, 5, 1]) {
+//   if (target === 0) return []
+//   if (coins.length === 0) return null
+//     if (target >= coins[0]) {
+//       let remainder = target - coins[0]
+//       let res = greedyMakeChange(remainder, coins)
+//       if (res === null) return null
+//       else return [coins[0], ...res]
+//     }
+//      else {
+//       let newCoins = coins.slice(1)
+//       let res = greedyMakeChange(target, newCoins)
+//       if (res === null) return null
+//       else return [...res]
+//     }
+//   }
 
 
 
 
 
-console.log(greedyMakeChange(55));
-
+console.log(makeBetterChange(55));
+console.log(makeBetterChange(11));
+console.log(makeBetterChange(15));
+console.log(makeBetterChange(21));
+console.log(makeBetterChange(43));
+console.log(makeBetterChange(75));
+console.log(makeBetterChange(14));
+console.log(makeBetterChange(34));
+console.log(makeBetterChange(37));
+console.log(makeBetterChange(63));
+console.log(makeBetterChange(55));
+console.log(makeBetterChange(88));
 
 /**************DO NOT MODIFY ANYTHING UNDER THIS LINE*****************/
 try {
