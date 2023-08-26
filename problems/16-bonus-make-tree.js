@@ -65,8 +65,15 @@ The call above should return the tree below:
 
 ***********************************************************************/
 
-const makeTree = (categories, parent) => {
-  // Your code here 
+const makeTree = (categories, parent = null) => {
+  let tree = {};
+    for(let currObj of categories) {
+        if(currObj.parent === parent) {
+            tree[currObj.id] = makeTree(categories, currObj.id)
+        }
+    }
+    return tree;
+
 };
 
 /**************DO NOT MODIFY ANYTHING UNDER THIS LINE*****************/
