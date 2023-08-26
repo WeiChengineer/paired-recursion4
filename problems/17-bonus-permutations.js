@@ -15,7 +15,7 @@ permutations([1, 2, 3]) // [[1, 2, 3], [1, 3, 2],
 ***********************************************************************/
 
 const permutations = (array) => {
-  // Your code here 
+  
 };
 
 /**************DO NOT MODIFY ANYTHING UNDER THIS LINE*****************/

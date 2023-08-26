@@ -55,9 +55,25 @@ solution so that it only calculates and compares all of the different
 combinations.
 ***********************************************************************/
 
-function makeBetterChange(target, coins = [25, 10, 5, 1]) {
-  // Your code here 
+function makeBetterChange(target, coins = [25, 10, 5, 1], res = []) {
+  if(target <= 0) {
+    return null;
+  }
+  for(let coin of coins) {
+    if(coin <= target) {
+      res.push(coin);
+      makeBetterChange((target - coin), coins)
+    }
+      if(coin > target) {
+        makeBetterChange((target-coin), coins.splice(0,1), res)
+      }
+      
+
+  
+  }
+    return res;
 }
+console.log(makeBetterChange(75));
 
 
 /**************DO NOT MODIFY ANYTHING UNDER THIS LINE*****************/
